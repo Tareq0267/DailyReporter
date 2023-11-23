@@ -1,7 +1,6 @@
 from django.utils import timezone
 from django.db import models
-
-from django.db import models
+from django.db.models import Sum
 
 class Cluster(models.Model):
     name = models.CharField(max_length=255)
@@ -75,6 +74,7 @@ class OverallProgress(models.Model):
 
     def __str__(self):
         return self.month.__str__()+" - "+self.year.__str__()
+        
 
 class DailyUpdate(models.Model):
     day = models.IntegerField(blank=True, null=True)
@@ -92,6 +92,20 @@ class DailyUpdate(models.Model):
 
     def __str__(self):
         return self.date.__str__()
+    
+    def get_cumulative_planning(self):
+        return DailyUpdate.objects.filter(date__lte=self.date).aggregate(Sum('planning'))['planning__sum']
+
+    def get_planning_percentage(self):
+        return self.planning/DailyUpdate.objects.last().get_cumulative_planning()*100
+    
+    def get_cumulative_actual(self):
+        return DailyUpdate.objects.filter(date__lte=self.date).aggregate(Sum('actual'))['actual__sum']
+
+    def get_actual_percentage(self):
+        return self.actual/DailyUpdate.objects.last().get_cumulative_actual()*100
+
+
     
 class HSE(models.Model):
     daily_report = models.ForeignKey(DailyReport, on_delete=models.CASCADE)
