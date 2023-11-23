@@ -163,3 +163,4 @@ cython_debug/
 Batik Username and Permission-latest (3).xlsx
 intekma_staff_details.xlsx
 .cosine
+dr/__pycache__/models.cpython-311.pyc
