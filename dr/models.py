@@ -93,17 +93,26 @@ class DailyUpdate(models.Model):
     def __str__(self):
         return self.date.__str__()
     
+    def get_overall_progress(self):
+        return self.overallprogress_set.all().get(month = self.date.month, year = self.date.year)
+    
+    def get_all_daily_updates(self):
+        return self.get_overall_progress().daily_update.all().order_by('date')
+    
     def get_cumulative_planning(self):
-        return DailyUpdate.objects.filter(date__lte=self.date).aggregate(Sum('planning'))['planning__sum']
-
+        return self.get_all_daily_updates().filter(date__lte = self.date).aggregate(Sum('planning'))['planning__sum']
+        
     def get_planning_percentage(self):
-        return self.planning/DailyUpdate.objects.last().get_cumulative_planning()*100
+        return self.planning/(self.get_all_daily_updates().last().get_cumulative_planning())*100
     
     def get_cumulative_actual(self):
-        return DailyUpdate.objects.filter(date__lte=self.date).aggregate(Sum('actual'))['actual__sum']
+        return self.get_all_daily_updates().filter(date__lte = self.date).aggregate(Sum('actual'))['actual__sum']
 
     def get_actual_percentage(self):
-        return self.actual/DailyUpdate.objects.last().get_cumulative_actual()*100
+        return self.actual/(self.get_all_daily_updates().last().get_cumulative_actual())*100
+    
+    def get_cumulative_equipment_visited(self):
+        return self.get_all_daily_updates().filter(date__lte = self.date).aggregate(Sum('equipment_visited'))['equipment_visited__sum']
 
 
     
