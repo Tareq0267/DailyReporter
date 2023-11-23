@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cluster List</title>
+</head>
+<body>
+    <h1>Cluster List</h1>
+    <ul>
+        {% for cluster in object_list %}
+            <li>{{ cluster.name }}</li>
+            
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+              content="Detailed information of the daily report.">
+        <meta name="keywords"
+              content="daily update, HSE, Manhour, Vibrational reading">
+        <title>Daily Report Detail</title>
+        <!-- Include Bootstrap CSS link -->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h1>Daily Report Detail</h1>
+            <h3 class="mb-4">Report no: {{ daily_report.report_no }}</h3>
+            <p>Date/time: {{ daily_report.date_time }}</p>
+            <p>Todays Activity: {{ daily_report.todays_activity }}</p>
+            <p>Remarks: {{ daily_report.remarks }}</p>
+            <!-- Display related data -->
+            <div class="mt-4">
+                <h2>Vibrational Readings</h2>
+                <ul class="list-group">
+                    {% for reading in daily_report.vibrational_reading.all %}
+                        <li class="list-group-item">
+                            {{ reading.equipment.name }} - {{ reading.category }} - {{ reading.reading }} - {{ reading.status }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mt-4">
+                <h2>HSE</h2>
+                <ul class="list-group">
+                    {% for hse in daily_report.hse_set.all %}
+                        <li class="list-group-item">LTI: {{ hse.LTI }}</li>
+                        <li class="list-group-item">RWC: {{ hse.RWC }}</li>
+                        <li class="list-group-item">MTC: {{ hse.MTC }}</li>
+                        <li class="list-group-item">TRC: {{ hse.TRC }}</li>
+                        <li class="list-group-item">FAC: {{ hse.FAC }}</li>
+                        <li class="list-group-item">Highlights: {{ hse.Highlights }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mt-4">
+                <h2>Manhours</h2>
+                <ul class="list-group">
+                    {% for manhour in daily_report.manhour_set.all %}
+                        <li class="list-group-item">{{ manhour.manpower }} - {{ manhour.manhours }} hours - {{ manhour.contractor }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="mt-4">
+                <h2>Prepared by</h2>
+                <p>{{ daily_report.prepared_by }}</p>
+            </div>
+            <div class="mt-4">
+                <h2>Reviewed by</h2>
+                <p>{{ daily_report.reviewed_by }}</p>
+            </div>
+        </div>
+        <!-- Include Bootstrap JS and Popper.js scripts -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                integrity="sha384-UoMlAaMN4NlRYcOap6LrPskz7UPX+CGF3aiGm2m9xI"
+                crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+    </body>
+</html>

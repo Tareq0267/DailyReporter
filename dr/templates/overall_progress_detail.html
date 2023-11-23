@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+              content="Detailed information about the overall progress, daily updates, and more.">
+        <meta name="keywords"
+              content="overall progress, daily update, table, daily report">
+        <title>Overall Progress Detail</title>
+        <!-- Include Bootstrap CSS link -->
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <h1 class="mb-4">Overall Progress Detail</h1>
+            <h2>Daily Reports</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Report No</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Prepared by</th>
+                        <th scope="col">Approved by</th>
+                        <th scope="col">Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in overall_progress.daily_report.all %}
+                        <tr>
+                            <td>{{ report.report_no }}</td>
+                            <td>{{ report.date_time }}</td>
+                            <td>{{ report.prepared_by }}</td>
+                            <td>{{ report.reviewed_by }}</td>
+                            <td>{{ report.remarks }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <h2>Daily Update</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Day</th>
+                        <th scope="col">Week</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Planning</th>
+                        <th scope="col">Cumulative Planning</th>
+                        <th scope="col">Percentage of Planning(%)</th>
+                        <th scope="col">Actual</th>
+                        <th scope="col">Proactive</th>
+                        <th scope="col">Cumulative Actual</th>
+                        <th scope="col">Percentage of Actual(%)</th>
+                        <th scope="col">Equipment Visited</th>
+                        <th scope="col">Cumulative Equipment Visited</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for update in overall_progress.daily_update.all %}
+                        <tr>
+                            <td>{{ update.day }}</td>
+                            <td>{{ update.week }}</td>
+                            <td>{{ update.date }}</td>
+                            <td>{{ update.planning }}</td>
+                            <td>{{ update.cumulative_planning }}</td>
+                            <td>{{ update.percent_planning }}%</td>
+                            <td>{{ update.actual }}</td>
+                            <td>{{ update.proactive }}</td>
+                            <td>{{ update.cumulative_actual }}</td>
+                            <td>{{ update.percent_actual }}%</td>
+                            <td>{{ update.equipment_visited }}</td>
+                            <td>{{ update.cumulative_equipment_visited }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- Include Bootstrap JS and Popper.js scripts -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+                    integrity="sha384-UoMlAaMN4NlRYcOap6LrPskz7UPX+CGF3aiGm2m9xI"
+                    crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+                    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                    crossorigin="anonymous"></script>
+        </div>
+    </body>
+</html>
